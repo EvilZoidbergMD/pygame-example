@@ -10,6 +10,7 @@ pygame.display.set_caption("Spaceship Battle")
 
 
 
+
 #--------------------YOUR CODE GOES INSIDE HERE---------------------------
 
 
@@ -17,7 +18,6 @@ pygame.display.set_caption("Spaceship Battle")
 #Declare any variables you need here
 player = pygame.Rect(380, 500, 32, 32)
 player_speed = 3
-player_alive = True
 player_bullet = pygame.Rect(0, 0, 4, 10)
 player_bullet_speed = 8
 player_bullet_active = False
@@ -25,7 +25,6 @@ player_bullet_active = False
 enemy = pygame.Rect(380, 100, 64, 64)
 enemy_speed = 2
 enemy_destination = 380 #Where the enemy ship is trying to get to
-enemy_alive = True
 enemy_bullet = pygame.Rect(0, 0, 4, 10)
 enemy_bullet_speed = 8
 enemy_bullet_active = False
@@ -45,12 +44,30 @@ game_over_image = pygame.image.load(os.path.join('res', 'game over.png'))
 
 #Do the game logic and update the position/physics/collision/etc
 def update(keys_pressed):
+    global game_running
+    global player_bullet_active
+    global enemy_bullet_active
+
     if game_running:
+        #Move both ships
         player_movement(keys_pressed)
         enemy_movement()
+
+        #Move both bullets
         player_bullet_movement()
         enemy_bullet_movement()
+
+        #Check if the bullets hit the ships
         check_bullet_collision()
+    else:
+        #Restart the game if the 'r' key is hit
+        if keys_pressed[pygame.K_r]:
+            #Deactivate both bullets
+            player_bullet_active = False
+            enemy_bullet_active = False
+
+            #Restart the game
+            game_running = True
 
 
 def player_movement(keys_pressed):
@@ -147,6 +164,7 @@ def enemy_ship_shot():
     global game_running
     global win
 
+    #If enemy ship is hit, the player wins
     win = True
     game_running = False
 
@@ -155,6 +173,7 @@ def player_ship_shot():
     global game_running
     global win
 
+    #If player ship is hit, the player loses
     win = False
     game_running = False
 
@@ -164,14 +183,16 @@ def check_bullet_collision():
     global player
     global enemy
     global player_bullet
+    global player_bullet_active
     global enemy_bullet
+    global enemy_bullet_active
 
     #Check player bullet vs enemy ship
-    if player_bullet.colliderect(enemy):
+    if player_bullet_active and player_bullet.colliderect(enemy):
         enemy_ship_shot()
 
     #Check enemy bullet vs player ship
-    if enemy_bullet.colliderect(player):
+    if enemy_bullet_active and enemy_bullet.colliderect(player):
         player_ship_shot()
 
 
@@ -229,6 +250,7 @@ def draw():
 
 
 #--------------------------------------------------------------------------
+
 
 
 
