@@ -19,7 +19,7 @@ player = pygame.Rect(380, 500, 32, 32)
 player_speed = 3
 player_alive = True
 player_bullet = pygame.Rect(0, 0, 4, 10)
-player_bullet_speed = 5
+player_bullet_speed = 8
 player_bullet_active = False
 
 enemy = pygame.Rect(380, 100, 64, 64)
@@ -27,7 +27,7 @@ enemy_speed = 2
 enemy_destination = 380 #Where the enemy ship is trying to get to
 enemy_alive = True
 enemy_bullet = pygame.Rect(0, 0, 4, 10)
-enemy_bullet_speed = 5
+enemy_bullet_speed = 8
 enemy_bullet_active = False
 
 game_running = True
