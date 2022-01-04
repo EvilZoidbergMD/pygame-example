@@ -219,10 +219,10 @@ def draw():
 
     #If the game is over, display the win or lose message
     if not game_running:
-        #If the player won, show the win message
+        #If the player won, show the win message (centered)
         if win:
             window.blit(you_win_image, (width / 2 - you_win_image.get_width() / 2, height / 2 - you_win_image.get_height() / 2))
-        #If the player lost, show the game over message
+        #If the player lost, show the game over message (centered)
         else:
             window.blit(game_over_image, (width / 2 - game_over_image.get_width() / 2, height / 2 - game_over_image.get_height() / 2))
 
