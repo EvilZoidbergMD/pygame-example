@@ -1,8 +1,8 @@
-
+import pygame
 
 class Animation:
     
-    def __init__(self, sprite_sheet, begin, end, frame_times, repeat=False):
+    def __init__(self, sprite_sheet, begin, end, frame_times, repeat=False, scale=(1,1), colorkey=(0,0,0)):
         self.is_playing = False
         self.current_frame = 0
         self.current_frame_counter = 0
@@ -11,6 +11,8 @@ class Animation:
         self.end = end
         self.frame_times = frame_times
         self.repeat = repeat
+        self.scale = scale
+        self.colorkey = colorkey
 
     def play(self):
         if not self.is_playing:
@@ -40,5 +42,6 @@ class Animation:
                 else:
                     self.is_playing = False
 
-    def draw(self, window, position):
-        window.blit(self.sprite_sheet.getImageByIndex(self.begin + self.current_frame), position)
+    def draw(self, window, position, size, flip=(False,False)):
+        image = self.sprite_sheet.getImageByIndex(self.begin + self.current_frame, size, flip)
+        window.blit(image, position)

@@ -11,10 +11,9 @@ class MyGame(SimpleGame):
     def __init__(self, title='MyGame'):
         super().__init__(title)
 
-        self.sprite = Sprite('player.png', 100, 100)
-
+        self.sprite = Sprite('player.png', (100,100), (32,32))
         self.spritesheet = SpriteSheet('Biker_run.png', 48, 48)
-        self.animatedsprite = AnimatedSprite(100, 200, 48, 48)
+        self.animatedsprite = AnimatedSprite((100, 200), (48,48))
         self.animatedsprite.addAnimation(Animation(self.spritesheet, 0, 5, [6,6,6,6,6,6], True))
 
     def update(self, keys_pressed):

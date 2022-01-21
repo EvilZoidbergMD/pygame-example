@@ -22,8 +22,20 @@ class SpriteSheet:
         surf.blit(self.image, (0,0), location)
         return surf
 
-    def getImageByIndex(self, index):
-        return self.getSubImage(self.getLocationForIndex(index))
+    def getImageByIndex(self, index, size, flip=(False,False)):
+        surf = pygame.Surface(size)
+        surf.set_colorkey(self.colorkey)
+        image = self.getSubImage(self.getLocationForIndex(index))
+        surf.blit(pygame.transform.scale(image, size), (0,0))
+        surf = pygame.transform.flip(surf, flip[0], flip[1])
+
+        return surf
+
+    def getScaledImageByIndex(self, index, size):
+        return getImageByIndex(self, index, size)
+
+    def getFlippedImageByIndex(self, index, flipX, flipY):
+        return getImageByIndex(self, index, (self.tile_width,self.tile_height), (flipX,flipY))
 
     def getLocationForIndex(self, index):
         row = 0

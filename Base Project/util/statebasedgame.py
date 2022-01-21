@@ -9,6 +9,7 @@ class StateBasedGame:
         self.fps = 60
         self.running = False
         self.clock = pygame.time.Clock()
+        self.mouse_down = False
 
         pygame.display.set_caption(title)
 
@@ -28,6 +29,10 @@ class StateBasedGame:
                 if event.type == pygame.QUIT:
                     #Stop the loop
                     self.running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    self.mouseDown()
+                if event.type == pygame.MOUSEBUTTONUP:
+                    self.mouseUp()
 
             self.keys_pressed = pygame.key.get_pressed()
 
@@ -52,3 +57,12 @@ class StateBasedGame:
 
     def removeState(self, state):
         self.states.remove(state)
+
+    def mouseDown(self, position):
+        self.mouse_down = True
+
+    def mouseUp(self, position):
+        self.mouse_down = False
+
+    def mousePosition(self):
+        return pygame.mouse.get_pos()
